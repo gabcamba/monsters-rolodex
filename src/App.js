@@ -1,53 +1,52 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-import "./App.css";
+import './App.css'
 
-import CardList from "./components/card-list/card-list";
-import { SearchBox } from "./components/search-box/search-box";
+import CardList from './components/card-list/card-list'
+import { SearchBox } from './components/search-box/search-box'
 
 class App extends Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       monsters: [],
-      searchField: ""
-    };
+      searchField: '',
+    }
   }
 
   componentDidMount = () => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then(response => response.json())
-      .then(users => this.setState({ monsters: users }));
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then((users) => this.setState({ monsters: users }))
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ searchField: e.target.value })
   }
 
-  
-
   render() {
-    const { monsters, searchField } = this.state;
-    const filteredMonsters = monsters.filter(monster =>
+    const { monsters, searchField } = this.state
+    const filteredMonsters = monsters.filter((monster) =>
       monster.name.toLowerCase().includes(searchField.toLowerCase())
-    );
+    )
 
     return (
-      <div className="App">
-      <h1>Monsters Rolodex</h1>
+      <div className='App'>
+        <h1>Monsters Rolodex</h1>
         <SearchBox
           placeholder='search monsters'
           handleChange={this.handleChange}
-         />
+        />
 
-         
-           {filteredMonsters.length > 0 ?  <CardList monsters={filteredMonsters}></CardList> :  "no monsters with that name!"}
-         
-       
+        {filteredMonsters.length > 0 ? (
+          <CardList monsters={filteredMonsters}></CardList>
+        ) : (
+          'no monsters with that name!'
+        )}
       </div>
     )
   }
 }
 
-export default App;
+export default App
